@@ -1,0 +1,151 @@
+<html>
+<head>
+   <meta name="viewport" content="width=device-width">
+   <title>BioTrack</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+         rel="stylesheet">
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+   <style type="text/css">
+       body {
+           font-family: "Montserrat", sans-serif;
+           font-optical-sizing: auto;
+           font-style: normal;
+       }
+   </style>
+</head>
+<body>
+<div class="container">
+   <div class="row">
+       <div class="col-12">
+           <h1 class="text-center">BioTrack</h1>
+           <div class="text-center">Share details about a sighting you observed</div>
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-12">
+           <form id="birdSighting" class="form" method="post">
+               <div>
+                   <div class="form-group mb-4">
+                       <label for="birdType">Type of Bird</label>
+                       <input id="birdType" name="birdType" type="text" class="form-control">
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="timeSeen">Date and Time Seen</label>
+                       <input id="timeSeen" name="timeSeen" type="datetime-local" class="form-control">
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="noOfBirds">Number of Birds Counted</label>
+                       <input id="noOfBirds" name="noOfBirds" type="number" class="form-control">
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="flyThroughs">Counted Flythroughs</label>
+                       <input id="flyThroughs" name="flyThroughs" type="number" class="form-control">
+                       <small>The number....</small>
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="flyThroughs">Counted Counted fly-overs</label>
+                       <input id="flyOvers" name="flyOvers" type="number" class="form-control">
+                       <small>The number....</small>
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="weather">Weather</label>
+                       <input id="weather" name="weather" type="text" class="form-control">
+                       <small>A brief description of the weather conditions</small>
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="wind">Wind Intensity</label>
+                       <select name="wind" id="wind" class="form-control">
+                           <option value="">Select an Option</option>
+                           <option value="low">Low</option>
+                           <option value="medium">Medium</option>
+                           <option value="high">High</option>
+                       </select>
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="temp">Temperature</label>
+                       <div class="input-group mb-3">
+                           <input id="temp" name="temp" type="text" class="form-control">
+                           <div class="input-group-append">
+                               <span class="input-group-text" id="basic-addon2">C</span>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="clouds">Cloud Cover</label>
+                       <input id="clouds" name="clouds" type="text" class="form-control">
+                   </div>
+
+                   <div class="form-group mb-4">
+                       <label for="location">Location Seen</label>
+                       <div class="input-group mb-3">
+                           <input id="location" name="location" type="text" class="form-control">
+                           <div class="input-group-append">
+                               <button onclick="useCurrentLocation()" class="btn btn-outline-secondary" type="button">
+                                   Use Current Location
+                               </button>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="text-center">
+                       <div><input type="file"></div>
+                       <div><small>Attach any photos you have captured that are relevant to the sighting.</small></div>
+                   </div>
+
+               </div>
+               <div>
+                   <button class="btn btn-primary">Submit</button>
+               </div>
+           </form>
+       </div>
+   </div>
+</div>
+
+<div id="thank-you"  class="text-center d-none mt-5 mb-5">
+   <h3>Thank you for submitting a sighting</h3>
+   <div><button onclick="submitAnother()" class="btn btn-primary">Submit Another</button></div>
+</div>
+
+<script type="text/javascript">
+   function useCurrentLocation() {
+       if (navigator.geolocation) {
+           navigator.geolocation.getCurrentPosition(function (position) {
+               document.querySelector('#location').value = `${position.coords.latitude},${position.coords.longitude}`;
+           });
+       } else {
+           alert("Geolocation is not supported by this browser.");
+       }
+   }
+
+   function saveData() {
+       // Post data to the backend
+       jQuery('#birdSighting').addClass('d-none');
+       jQuery('#thank-you').removeClass('d-none');
+   }
+   function submitAnother(){
+       jQuery('#birdSighting').removeClass('d-none');
+       jQuery('#thank-you').addClass('d-none');
+   }
+   $(document).ready(function(){
+       document.getElementById("birdSighting").addEventListener("submit", function(event){
+           event.preventDefault();
+           saveData();
+           this.reset();
+           return false;
+       });
+   })
+</script>
+</body>
+</html>
