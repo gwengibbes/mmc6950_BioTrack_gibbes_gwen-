@@ -1,7 +1,7 @@
 'use client';
-import {useState} from "react";
-import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row} from "react-bootstrap";
-import {useRouter} from "next/navigation";
+import { useState } from "react";
+import { Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row } from "react-bootstrap";
+import { useRouter } from "next/navigation";
 
 export default function AddObservation() {
     const [observation, setObservation] = useState({
@@ -31,14 +31,14 @@ export default function AddObservation() {
         console.log(files);
         const photos = [];
         for (let file of files) {
-            const {name, type} = file;
+            const { name, type } = file;
             photos.push({
                 content: await convertBase64(file),
                 name,
                 contentType: type,
             })
         }
-        updateObservation({photos});
+        updateObservation({ photos });
     }
 
     function convertBase64(file) {
@@ -100,52 +100,52 @@ export default function AddObservation() {
                                 <FormGroup className={'form-group'} controlId='birdType'>
                                     <FormLabel>Type of Bird</FormLabel>
                                     <FormControl size={'lg'} onChange={(e) => {
-                                        updateObservation({birdType: e.target.value})
+                                        updateObservation({ birdType: e.target.value })
                                     }} value={observation.birdType} type='text'></FormControl>
                                 </FormGroup>
 
                                 <FormGroup className="mb-4">
                                     <label htmlFor="timeSeen">Date and Time Seen</label>
                                     <input value={observation.timeSeen} onChange={(e) => {
-                                        updateObservation({timeSeen: e.target.value})
-                                    }} id="timeSeen" name="timeSeen" type="datetime-local" className="form-control"/>
+                                        updateObservation({ timeSeen: e.target.value })
+                                    }} id="timeSeen" name="timeSeen" type="datetime-local" className="form-control" />
                                 </FormGroup>
 
                                 <div className="form-group mb-4">
                                     <label htmlFor="noOfBirds">Number of Birds Counted</label>
                                     <input value={observation.noOfBirds} onChange={(e) => {
-                                        updateObservation({noOfBirds: e.target.value})
-                                    }} id="noOfBirds" name="noOfBirds" type="number" className="form-control"/>
+                                        updateObservation({ noOfBirds: e.target.value })
+                                    }} id="noOfBirds" name="noOfBirds" type="number" className="form-control" />
                                 </div>
 
                                 <div className="form-group mb-4">
                                     <label htmlFor="flyThroughs">Counted Flythroughs</label>
                                     <input value={observation.flyThroughs} onChange={(e) => {
-                                        updateObservation({flyThroughs: e.target.value})
-                                    }} id="flyThroughs" name="flyThroughs" type="number" className="form-control"/>
+                                        updateObservation({ flyThroughs: e.target.value })
+                                    }} id="flyThroughs" name="flyThroughs" type="number" className="form-control" />
                                     <small>The number....</small>
                                 </div>
 
                                 <div className="form-group mb-4">
                                     <label htmlFor="flyOvers">Counted fly-overs</label>
                                     <input value={observation.flyOvers} onChange={(e) => {
-                                        updateObservation({flyOvers: e.target.value})
-                                    }} id="flyOvers" name="flyOvers" type="number" className="form-control"/>
+                                        updateObservation({ flyOvers: e.target.value })
+                                    }} id="flyOvers" name="flyOvers" type="number" className="form-control" />
                                     <small>The number....</small>
                                 </div>
 
                                 <div className="form-group mb-4">
                                     <label htmlFor="weather">Weather</label>
                                     <input value={observation.weatherCondition} onChange={(e) => {
-                                        updateObservation({weatherCondition: e.target.value})
-                                    }} id="weather" name="weather" type="text" className="form-control"/>
+                                        updateObservation({ weatherCondition: e.target.value })
+                                    }} id="weather" name="weather" type="text" className="form-control" />
                                     <small>A brief description of the weather conditions</small>
                                 </div>
 
                                 <div className="form-group mb-4">
                                     <label htmlFor="wind">Wind Intensity</label>
                                     <select value={observation.windIntensity} onChange={(e) => {
-                                        updateObservation({windIntensity: e.target.value})
+                                        updateObservation({ windIntensity: e.target.value })
                                     }} name="wind" id="wind" className="form-control">
                                         <option value="">Select an Option</option>
                                         <option value="low">Low</option>
@@ -158,10 +158,10 @@ export default function AddObservation() {
                                     <label htmlFor="temp">Temperature</label>
                                     <div className="input-group mb-3">
                                         <input value={observation.temperature} onChange={(e) => {
-                                            updateObservation({temperature: e.target.value})
-                                        }} id="temp" name="temp" type="text" className="form-control"/>
+                                            updateObservation({ temperature: e.target.value })
+                                        }} id="temp" name="temp" type="text" className="form-control" />
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="basic-addon2">C</span>
+                                            <span className="input-group-text" id="basic-addon2">F</span>
                                         </div>
                                     </div>
                                 </div>
@@ -169,21 +169,21 @@ export default function AddObservation() {
                                 <div className="form-group mb-4">
                                     <label htmlFor="clouds">Cloud Cover</label>
                                     <input value={observation.cloudCover} onChange={(e) => {
-                                        updateObservation({cloudCover: e.target.value})
-                                    }} id="clouds" name="clouds" type="text" className="form-control"/>
+                                        updateObservation({ cloudCover: e.target.value })
+                                    }} id="clouds" name="clouds" type="text" className="form-control" />
                                 </div>
 
                                 <div className="form-group mb-4">
                                     <label htmlFor="location">Location Seen</label>
                                     <div className="input-group mb-3">
                                         <input value={observation.location} onChange={(e) => {
-                                            updateObservation({location: e.target.value})
-                                        }} id="location" name="location" type="text" className="form-control"/>
+                                            updateObservation({ location: e.target.value })
+                                        }} id="location" name="location" type="text" className="form-control" />
                                         <div className="input-group-append">
                                             <button onClick={(e) => {
                                                 useCurrentLocation()
                                             }} className="btn btn-outline-secondary"
-                                                    type="button">
+                                                type="button">
                                                 Use Current Location
                                             </button>
                                         </div>
@@ -191,7 +191,7 @@ export default function AddObservation() {
                                 </div>
 
                                 <div className="text-center">
-                                    <div><input type="file" multiple onChange={e => attachFiles(e.target.files)}/></div>
+                                    <div><input type="file" multiple onChange={e => attachFiles(e.target.files)} /></div>
                                     <div><small>Attach any photos you have captured that are relevant to the
                                         sighting.</small></div>
                                 </div>
