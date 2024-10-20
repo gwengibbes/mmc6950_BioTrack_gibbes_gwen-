@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const {Schema} = mongoose;
+import {dbConnection} from "@/config/db";
 
 const ObservationSchema = new Schema({
     birdType: String,
@@ -11,7 +12,7 @@ const ObservationSchema = new Schema({
     weatherCondition: String,
     windIntensity: {
         type: String,
-        // Validation to ensure that onuy these values are saved.
+        // Validation to ensure that only these values are saved.
         enum: ['', 'low', 'medium', 'high'],
     },
     temperature: Number,
@@ -21,9 +22,14 @@ const ObservationSchema = new Schema({
         content: String,
         name: String,
         contentType: String
-    }]
+    }],
+    user: {
+        type: String,
+        ref: 'Users'
+    }
+}, {
+    timestamps: true
 });
 
 const modelName = 'Observations'
-
 export const Observations = mongoose.models[modelName] ?? mongoose.model(modelName, ObservationSchema);
