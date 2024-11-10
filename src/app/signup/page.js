@@ -1,7 +1,8 @@
 'use client';
-import {Button, Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row} from "react-bootstrap";
 import {useState, useEffect} from "react";
 import {useRouter} from "next/navigation";
+import styles from './signup.module.css';
 
 export default function SignUp(props) {
     const [username, setUsername] = useState('');
@@ -9,10 +10,9 @@ export default function SignUp(props) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const router = useRouter();
 
-    async function signUp(e){
+    async function signUp(e) {
         e.preventDefault();
-        console.log('Signing up.')
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             alert('Passwords do not match');
             return false;
         }
@@ -27,30 +27,52 @@ export default function SignUp(props) {
             }
         });
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            const json = await response.json();
+            alert(json.error);
         }
+        console.log('Oops!')
         const json = await response.json();
         router.push('/');
         return false;
     }
 
     return (
-        <div>
-            <Form onSubmit={signUp}>
-                <FormGroup controlId='username'>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl required  value={username} onChange={e => {setUsername(e.target.value)}} type='text'></FormControl>
-                </FormGroup>
-                <FormGroup controlId='password'>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl required value={password} onChange={e => {setPassword(e.target.value)}} type='password'></FormControl>
-                </FormGroup>
-                <FormGroup controlId='confirmPassword'>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <FormControl required value={confirmPassword} onChange={e => {setConfirmPassword(e.target.value)}} type='password'></FormControl>
-                </FormGroup>
-                <Button type={'submit'}>Sign Up </Button>
-            </Form>
+        <div className={styles.page}>
+            <Container>
+                <Row>
+                    <Col sm='12'>
+                        <h1 className="text-center">Sign Up</h1>
+                        <div className="text-center">Join BioTrack Today!</div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm={8} className={'offset-sm-2'}>
+                        <Form onSubmit={signUp}>
+                            <FormGroup controlId='username' className='mb-4'>
+                                <FormLabel>Username</FormLabel>
+                                <FormControl required value={username} onChange={e => {
+                                    setUsername(e.target.value)
+                                }} type='text'></FormControl>
+                            </FormGroup>
+                            <FormGroup controlId='password' className='mb-4'>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl required value={password} onChange={e => {
+                                    setPassword(e.target.value)
+                                }} type='password'></FormControl>
+                            </FormGroup>
+                            <FormGroup controlId='confirmPassword' className='mb-4'>
+                                <FormLabel>Confirm Password</FormLabel>
+                                <FormControl required value={confirmPassword} onChange={e => {
+                                    setConfirmPassword(e.target.value)
+                                }} type='password'></FormControl>
+                            </FormGroup>
+                            <div className={'text-center'}>
+                                <Button variant={"primary"} type={'submit'}>Sign Up</Button>
+                            </div>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }

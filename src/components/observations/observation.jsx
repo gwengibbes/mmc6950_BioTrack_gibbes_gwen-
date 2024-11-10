@@ -1,7 +1,9 @@
 import { Col, Row } from "react-bootstrap";
 import Moment from "react-moment";
+import {APIProvider, Map, Marker} from "@vis.gl/react-google-maps";
 
 export default function Observation({ observation: o }) {
+    const API_KEY = 'AIzaSyBINQ12s2muvZrBKDnvVwKpammt1TdFtc0';
   return (
     <div>
       {o.photos.length > 0 && <img src={o.photos[0].content} />}
@@ -32,6 +34,29 @@ export default function Observation({ observation: o }) {
           <Col>Cloud Cover: {o.cloudCover ? o.cloudCover : "-"}</Col>
         </Row>
       </div>
+        <div>
+            {o.coordinates &&
+                <APIProvider apiKey={API_KEY}>
+                    {/*
+                                Documentation: https://visgl.github.io/react-google-maps/docs/api-reference/components/api-provider
+                                */}
+                    <Map
+                        style={{width: '100%', height: '200px'}}
+                        defaultCenter={o.coordinates}
+                        defaultZoom={12}
+                        gestureHandling={'greedy'}
+                        disableDefaultUI={true}
+                    >
+                        {/*
+                                Documentation: https://visgl.github.io/react-google-maps/docs/api-reference/components/marker
+
+                                Display the list of locations that we recieve from the database as pins/markers on the map
+                                */}
+                        <Marker position={o.coordinates}/>
+                    </Map>
+                </APIProvider>
+            }
+        </div>
     </div>
   );
 }

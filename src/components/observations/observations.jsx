@@ -5,11 +5,18 @@ export default function Observations({observations}) {
     return (
         <div>
             <Row>
-                {observations.map(o => <Col md='4' key={o._id}><Observation observation={o}/></Col>)}
-            </Row>
-            <ul>
+                <Col md={8} className={'offset-md-2'}>
+                    {observations.map(o => {
+                            return <Row key={o._id}>
+                                <Col xs='12' ><Observation observation={o}/></Col>
+                                <hr className={'mt-5 mb-5'} />
+                            </Row>
 
-            </ul>
+
+                        }
+                    )}
+                </Col>
+            </Row>
         </div>
     )
 }

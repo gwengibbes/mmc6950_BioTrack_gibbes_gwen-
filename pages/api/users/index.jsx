@@ -20,7 +20,12 @@ export default async function handler(req, res) {
                 await session.save();
                 res.status(201).json(userAccount);
             } catch(err){
-                res.status(201).json({error: `Failed to create the account: ${err.message}`});
+                console.log(err)
+                if(err.code === 11000){
+                    res.status(400).json({error: `The specified username is not available`});
+                    return;
+                }
+                res.status(400).json({error: `Failed to create the account: ${err.message}`});
             }
 
             break;

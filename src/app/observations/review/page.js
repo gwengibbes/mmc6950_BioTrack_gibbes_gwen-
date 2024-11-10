@@ -1,6 +1,7 @@
 "use client";
 import {useEffect, useState} from "react";
 import {Observations} from "@/components/observations";
+import {Container} from "react-bootstrap";
 
 async function getObservations() {
     const response = await fetch(`/api/observations?view=all`, {
@@ -14,25 +15,26 @@ async function getObservations() {
     return response.json();
 }
 
-export default function LoggedObservations(props){
+export default function LoggedObservations(props) {
 
     const [loggedObservations, setLoggedObservations] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('Getting IBS')
-        getObservations().then(res=>{
+        getObservations().then(res => {
             setLoggedObservations(res);
-        }).catch(err=>{
+        }).catch(err => {
             console.log('Failed to update the list of logged observations');
         });
     }, [])
 
 
-
     return (
-        <div>
-            <h2>All Observations ({loggedObservations.length})</h2>
-            <Observations observations={loggedObservations} />
-        </div>
+        <Container>
+            <div>
+                <h2>All Observations ({loggedObservations.length})</h2>
+                <Observations observations={loggedObservations}/>
+            </div>
+        </Container>
     )
 }

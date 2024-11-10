@@ -1,0 +1,23 @@
+.homepage {
+    background: linear-gradient(90deg, #A19D97 50%, #FFA235 50%);
+}
+
+img.logo_large {
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+    display: table;
+    margin: 40px auto;
+}
+
+img.logo_small {
+    max-width: 80px;
+    display: table;
+    /*margin: 40px auto;*/
+}
+
+@media screen and (max-width: 1024px) {
+    .homepage {
+        background: #FFA235;
+    }
+}

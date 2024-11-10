@@ -1,0 +1,16 @@
+.page {
+    background-color: #00AEEA;
+}
+.header {
+
+}
+
+.header img{
+    width: 240px;
+    display: table;
+    margin: 0 auto;
+}
+
+.birds img {
+    max-width: 100%;
+}

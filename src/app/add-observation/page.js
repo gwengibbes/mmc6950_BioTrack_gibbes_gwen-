@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row } from "react-bootstrap";
 import { useRouter } from "next/navigation";
+import styles from './add-observation.module.css';
 
 export default function AddObservation() {
     const [observation, setObservation] = useState({
@@ -85,8 +86,11 @@ export default function AddObservation() {
     }
 
     return (
-        <div>
+        <div className={styles.page}>
             <Container className='mx-auto'>
+                <div className={styles.header}>
+                    <img src='/images/logo-add-observation.png'/>
+                </div>
                 <Row>
                     <Col sm='12'>
                         <h1 className="text-center">BioTrack</h1>
@@ -94,7 +98,10 @@ export default function AddObservation() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm='12'>
+                    <Col md='2' className={styles.birds}>
+                        <img src='/images/bird-circular.png' />
+                    </Col>
+                    <Col sm='8'>
                         <Form id="birdSighting" className="form" method="post">
                             <div>
                                 <FormGroup className={'form-group'} controlId='birdType'>
@@ -182,7 +189,7 @@ export default function AddObservation() {
                                         <div className="input-group-append">
                                             <button onClick={(e) => {
                                                 useCurrentLocation()
-                                            }} className="btn btn-outline-secondary"
+                                            }} className="btn btn-outline-dark"
                                                 type="button">
                                                 Use Current Location
                                             </button>
@@ -198,9 +205,12 @@ export default function AddObservation() {
 
                             </div>
                             <div className='text-center mt-5'>
-                                <Button onClick={submitObservation()} variant='primary'>Submit</Button>
+                                <Button className='btn btn-primary btn-lg' onClick={submitObservation()} variant='primary'>Submit</Button>
                             </div>
                         </Form>
+                    </Col>
+                    <Col md='2'>
+                        <img />
                     </Col>
                 </Row>
             </Container>

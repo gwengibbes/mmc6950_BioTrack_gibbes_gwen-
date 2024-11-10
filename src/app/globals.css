@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*@tailwind base;*/
+/*@tailwind components;*/
+/*@tailwind utilities;*/
 
 :root {
   --background: #ffffff;
@@ -17,11 +17,36 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-family: 'Raleway';
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/*@layer utilities {*/
+/*  .text-balance {*/
+/*    text-wrap: balance;*/
+/*  }*/
+/*}*/
+
+
+.highlight {
+  background-color: #EFD3BE;
+}
+h2.highlight {
+  display: table;
+  padding: 5px;
+}
+
+.btn-primary {
+  background-color: #EFD3BE;
+  color: #333;
+  border: none;
+  border-radius: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+.logged-in .auth-prompt {
+  display: none;
 }

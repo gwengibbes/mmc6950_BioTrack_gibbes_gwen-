@@ -8,7 +8,18 @@ export async function createObservation(observation) {
 
 // Get a list of all submitted observations
 export async function getObservations() {
-    return await Observations.find({}).lean()
+    const observations = await Observations.find({}).lean()
+    observations.forEach(observation => {
+        if (!observation.location) {
+            return;
+        }
+        const [lat, lng] = observation.location.split(',');
+        observation.coordinates = {
+            lat: Number(lat),
+            lng: Number(lng),
+        };
+    });
+    return observations;
 }
 
 // Get the location data only, from all submitted observations
@@ -21,7 +32,7 @@ export async function getObservationLocations() {
     }).lean();
 
     // Update the format of the response to match what is required by the Google Maps component
-    return observations.map(o=>{
+    return observations.map(o => {
         const [lat, lng] = o.location.split(',');
         // The React component requires the data in the format: {lat: 10.508178, lng: -61.3850892 } This ensure that it is formatted that way
         return {
