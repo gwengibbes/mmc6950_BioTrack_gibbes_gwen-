@@ -11,7 +11,7 @@ export default async function handler(req, res) {
             // When the URL matches: /api/observations?view=all this means that an admin is attempting to review all observations
             if(req.query.view === 'all' && session.isAdmin){
                 // Once the user is an admin, return all submitted observations
-                observations = await getObservations();
+                observations = await getObservations(user);
             } else {
                 if(!user){
                     // When the user is not logged in, do not return any data

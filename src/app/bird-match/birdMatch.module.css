@@ -1,0 +1,25 @@
+.page{
+    background-color: #081A38;
+    color: #FFF;
+    padding: 60px 10px;
+}
+
+.birdMatchQuestion {
+    /*height: 300px;*/
+    /*width: 300px;*/
+    /*max-width: 100%;*/
+    margin-bottom: 30px;
+}
+
+.birdMatchImg{
+    background-size: cover;
+    background-position: center center;
+    height: 250px;
+    width: 250px;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+.answerResponse {
+    margin-top: 10px;
+}

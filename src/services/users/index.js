@@ -1,8 +1,9 @@
 import {Users} from "@/models/users";
 import {compare} from 'bcrypt'
 
-export async function createAccount(username, password) {
-    return (new Users({username, password})).save().then(res => {
+export async function createAccount(username, password, emailAddress, ageGroup) {
+    console.log('Creating the account: ',{username, password,emailAddress, ageGroup});
+    return (new Users({username, password,emailAddress, ageGroup})).save().then(res => {
         return res
     });
 }

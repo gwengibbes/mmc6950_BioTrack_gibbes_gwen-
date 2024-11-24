@@ -14,6 +14,7 @@ export default function AddObservation() {
         weatherCondition: '',
         windIntensity: '',
         temperature: '',
+        temperatureUnit: 'F',
         cloudCover: '',
         location: '',
         photos: []
@@ -89,7 +90,7 @@ export default function AddObservation() {
         <div className={styles.page}>
             <Container className='mx-auto'>
                 <div className={styles.header}>
-                    <img src='/images/logo-add-observation.png'/>
+                    <img src='/images/logo-add-observation.png' />
                 </div>
                 <Row>
                     <Col sm='12'>
@@ -99,7 +100,6 @@ export default function AddObservation() {
                 </Row>
                 <Row>
                     <Col md='2' className={styles.birds}>
-                        <img src='/images/bird-circular.png' />
                     </Col>
                     <Col sm='8'>
                         <Form id="birdSighting" className="form" method="post">
@@ -130,7 +130,7 @@ export default function AddObservation() {
                                     <input value={observation.flyThroughs} onChange={(e) => {
                                         updateObservation({ flyThroughs: e.target.value })
                                     }} id="flyThroughs" name="flyThroughs" type="number" className="form-control" />
-                                    <small>The number....</small>
+                                    <small>All birds that fly through a point, below the tallest structure in an area but do not land on any structure.</small>
                                 </div>
 
                                 <div className="form-group mb-4">
@@ -138,7 +138,7 @@ export default function AddObservation() {
                                     <input value={observation.flyOvers} onChange={(e) => {
                                         updateObservation({ flyOvers: e.target.value })
                                     }} id="flyOvers" name="flyOvers" type="number" className="form-control" />
-                                    <small>The number....</small>
+                                    <small>All higher-flying birds that fly above than the tallest structure in an area.</small>
                                 </div>
 
                                 <div className="form-group mb-4">
@@ -155,9 +155,10 @@ export default function AddObservation() {
                                         updateObservation({ windIntensity: e.target.value })
                                     }} name="wind" id="wind" className="form-control">
                                         <option value="">Select an Option</option>
-                                        <option value="low">Low</option>
-                                        <option value="medium">Medium</option>
                                         <option value="high">High</option>
+                                        <option value="moderate">Moderate</option>
+                                        <option value="low">Low</option>
+                                        <option value="none">None</option>
                                     </select>
                                 </div>
 
@@ -168,16 +169,30 @@ export default function AddObservation() {
                                             updateObservation({ temperature: e.target.value })
                                         }} id="temp" name="temp" type="text" className="form-control" />
                                         <div className="input-group-append">
-                                            <span className="input-group-text" id="basic-addon2">F</span>
+                                            <span className="input-group-text" id="basic-addon2">
+                                                <select value={observation.temperatureUnit} onChange={(e) => {
+                                                    updateObservation({ temperatureUnit: e.target.value })
+                                                }}>
+                                                    <option value='f'>ºF</option>
+                                                    <option value='c'>ºC</option>
+                                                </select>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="form-group mb-4">
                                     <label htmlFor="clouds">Cloud Cover</label>
-                                    <input value={observation.cloudCover} onChange={(e) => {
+                                    <select value={observation.cloudCover} onChange={(e) => {
                                         updateObservation({ cloudCover: e.target.value })
-                                    }} id="clouds" name="clouds" type="text" className="form-control" />
+                                    }} name="wind" id="wind" className="form-control">
+                                        <option value="">Select an Option</option>
+                                        <option value="Clear Sky">Clear Sky</option>
+                                        <option value="few clouds">Few Clouds</option>
+                                        <option value="Scattered Clouds">Scattered Clouds</option>
+                                        <option value="Broken Clouds">Broken Clouds</option>
+                                        <option value="Overcast">Overcast</option>
+                                    </select>
                                 </div>
 
                                 <div className="form-group mb-4">

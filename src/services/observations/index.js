@@ -7,9 +7,10 @@ export async function createObservation(observation) {
 }
 
 // Get a list of all submitted observations
-export async function getObservations() {
+export async function getObservations(user) {
     const observations = await Observations.find({}).lean()
     observations.forEach(observation => {
+        observation.isOwner = user._id === observation.user;
         if (!observation.location) {
             return;
         }
@@ -49,6 +50,19 @@ export async function getObservationsForUser(user) {
     }).lean()).map(obs => {
         // Ensure that the ID property is returned as a string
         obs._id = obs._id.toString();
+        const [lat, lng] = obs.location.split(',');
+        obs.coordinates = {
+            lat: Number(lat),
+            lng: Number(lng),
+        };
+        obs.isOwner = user._id === obs.user;
         return obs
     })
+}
+
+export function deleteObservation(id, user) {
+    if(!id){
+        return {};
+    }
+    return Observations.deleteOne({_id: id, user: user._id});
 }

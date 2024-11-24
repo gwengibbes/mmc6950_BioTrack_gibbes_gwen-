@@ -12,10 +12,13 @@ const ObservationSchema = new Schema({
     weatherCondition: String,
     windIntensity: {
         type: String,
-        // Validation to ensure that only these values are saved.
-        enum: ['', 'low', 'medium', 'high'],
     },
+
     temperature: Number,
+    temperatureUnit: {
+        type: String,
+        enum: ['', 'C', 'F'],
+    },
     cloudCover: String,
     location: String,
     photos: [{

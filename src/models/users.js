@@ -2,15 +2,20 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
 import {dbConnection} from "@/config/db";
 
-const { Schema } = mongoose;
+const {Schema} = mongoose;
 
 const UsersSchema = new Schema({
-    firstName: String,
-    lastName: String,
     username: {
         type: String,
         trim: true,
         unique: true
+    },
+    emailAddress: {
+        type: String,
+        unique: true,
+    },
+    ageGroup: {
+        type: String
     },
     password: {
         type: String,
@@ -19,7 +24,7 @@ const UsersSchema = new Schema({
     timestamps: true
 });
 
-UsersSchema.pre('save', async function(next) {
+UsersSchema.pre('save', async function (next) {
     if (this.isNew)
         this.password = await bcrypt.hash(this.password, 10)
     next()

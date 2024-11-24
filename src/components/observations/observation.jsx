@@ -1,9 +1,26 @@
-import { Col, Row } from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import Moment from "react-moment";
 import {APIProvider, Map, Marker} from "@vis.gl/react-google-maps";
 
 export default function Observation({ observation: o }) {
     const API_KEY = 'AIzaSyBINQ12s2muvZrBKDnvVwKpammt1TdFtc0';
+
+    async function deleteObservation() {
+        if(confirm('Are you sure you want to delete this observation?')){
+            const response = await fetch(`/api/observations/${o._id}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            location.reload();
+        }
+    }
+
   return (
     <div>
       {o.photos.length > 0 && <img src={o.photos[0].content} />}
@@ -57,6 +74,10 @@ export default function Observation({ observation: o }) {
                 </APIProvider>
             }
         </div>
+
+        {
+            o.isOwner && <div className='text-center mt-3 mb-5'><Button onClick={deleteObservation} className='btn btn-primary'>Delete</Button></div>
+        }
     </div>
   );
 }

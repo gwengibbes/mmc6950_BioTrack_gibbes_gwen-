@@ -1,11 +1,13 @@
 'use client';
-import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, FormSelect, Row} from "react-bootstrap";
 import {useState, useEffect} from "react";
 import {useRouter} from "next/navigation";
 import styles from './signup.module.css';
 
 export default function SignUp(props) {
     const [username, setUsername] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
+    const [ageGroup, setAgeGroup] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const router = useRouter();
@@ -21,6 +23,8 @@ export default function SignUp(props) {
             body: JSON.stringify({
                 username,
                 password,
+                ageGroup,
+                emailAddress,
             }),
             headers: {
                 'content-type': 'application/json'
@@ -53,6 +57,29 @@ export default function SignUp(props) {
                                 <FormControl required value={username} onChange={e => {
                                     setUsername(e.target.value)
                                 }} type='text'></FormControl>
+                            </FormGroup>
+                            <FormGroup controlId='emailAddress' className='mb-4'>
+                                <FormLabel>Email Address</FormLabel>
+                                <FormControl required value={emailAddress} onChange={e => {
+                                    setEmailAddress(e.target.value)
+                                }} type='email'></FormControl>
+                            </FormGroup>
+                            <FormGroup controlId='ageGroup' className='mb-4'>
+                                <FormLabel>Age Group</FormLabel>
+                                <FormSelect value={ageGroup} onChange={e => {
+                                    setAgeGroup(e.target.value)
+                                }}>
+                                    <option value="">Select An Age Group</option>
+                                    <option>11-20</option>
+                                    <option>21-29</option>
+                                    <option>31-39</option>
+                                    <option>41-49</option>
+                                    <option>51-59</option>
+                                    <option>61-69</option>
+                                    <option>71-79</option>
+                                    <option>81-89</option>
+                                    <option>91-99</option>
+                                </FormSelect>
                             </FormGroup>
                             <FormGroup controlId='password' className='mb-4'>
                                 <FormLabel>Password</FormLabel>

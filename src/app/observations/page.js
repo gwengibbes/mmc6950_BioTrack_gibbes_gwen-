@@ -19,15 +19,12 @@ export default function LoggedObservations(props){
     const [loggedObservations, setLoggedObservations] = useState([]);
 
     useEffect(()=>{
-        console.log('Getting IBS')
         getObservations().then(res=>{
             setLoggedObservations(res);
         }).catch(err=>{
             console.log('Failed to update the list of logged observations');
         });
     }, [])
-
-
 
     return (
         <div>

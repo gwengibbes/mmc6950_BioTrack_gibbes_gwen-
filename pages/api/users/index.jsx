@@ -6,12 +6,12 @@ import {adminUserNames} from "@/config/admins";
 export default async function handler(req, res) {
     switch (req.method){
         case 'POST':
-            const {username, password} = req.body;
+            const {username, password,emailAddress, ageGroup} = req.body;
             if(!username || !password) {
                 res.status(400).json({error: 'Username and password is required'});
             }
             try {
-                const userAccount = await createAccount(username, password);
+                const userAccount = await createAccount(username, password, emailAddress, ageGroup);
                 const session = await getIronSession(req, res, sessionOptions);
                 session.username = userAccount.username;
                 session.userId = userAccount._id;
