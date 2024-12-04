@@ -1,7 +1,5 @@
 import Link from "next/link";
-import styles from "./auth-status.css";
-
-console.log("Style:", styles);
+import styles from "./auth-status.module.css";
 
 export default function AuthStatus(props) {
   return (
@@ -21,12 +19,11 @@ export default function AuthStatus(props) {
           <Link href="/api/logout">Log Out</Link>
         </div>
       )}
-      {!props.isLoggedIn && (
-        <div>
-          <Link href="/">Home</Link> | &nbsp;
-          <Link href="/bird-match">Bird Match</Link>
-        </div>
-      )}
+      {!props.isLoggedIn && <div>
+        <Link href="/">Home</Link> | &nbsp;
+        <Link href="/bird-match">Bird Match</Link>
+      </div>
+      }
     </div>
   );
 }

@@ -3,7 +3,7 @@ import {getRandomQuestions, isAnswerCorrect} from "@/services/bird-match-questio
 export default async function handler(req, res) {
     switch (req.method) {
         case 'GET':
-            const questions = await getRandomQuestions(8)
+            const questions = await getRandomQuestions(4)
             res.json(questions);
             break;
         case 'POST':

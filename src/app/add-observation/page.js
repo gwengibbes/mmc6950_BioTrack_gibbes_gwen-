@@ -19,6 +19,8 @@ export default function AddObservation() {
         location: '',
         photos: []
     })
+    const [geolocationStatus, setGeolocationStatus] = useState();
+
     const router = useRouter();
 
     function updateObservation(updates) {
@@ -57,10 +59,26 @@ export default function AddObservation() {
     }
 
     function useCurrentLocation() {
+        setGeolocationStatus('loading');
         navigator.geolocation.getCurrentPosition((position) => {
+            setGeolocationStatus('loaded');
             updateObservation({
                 location: `${position.coords.latitude},${position.coords.longitude}`
             })
+        }, (positionError)=>{
+            console.log('Failed!', positionError);
+            switch(positionError.code) {
+                case 1:
+                    setGeolocationStatus('permission-denied');
+                    break;
+                case 2:
+                    setGeolocationStatus('position-unavailable');
+                    break;
+                case 3:
+                    setGeolocationStatus('timed-out');
+                    break;
+            }
+
         });
     }
 
@@ -90,7 +108,7 @@ export default function AddObservation() {
         <div className={styles.page}>
             <Container className='mx-auto'>
                 <div className={styles.header}>
-                    <img src='/images/logo-add-observation.png' />
+                    <img src='/images/logo-add-observation.png'/>
                 </div>
                 <Row>
                     <Col sm='12'>
@@ -100,6 +118,7 @@ export default function AddObservation() {
                 </Row>
                 <Row>
                     <Col md='2' className={styles.birds}>
+
                     </Col>
                     <Col sm='8'>
                         <Form id="birdSighting" className="form" method="post">
@@ -173,9 +192,9 @@ export default function AddObservation() {
                                                 <select value={observation.temperatureUnit} onChange={(e) => {
                                                     updateObservation({ temperatureUnit: e.target.value })
                                                 }}>
-                                                    <option value='f'>ºF</option>
-                                                    <option value='c'>ºC</option>
-                                                </select>
+                                                <option value='f'>ºF</option>
+                                                <option value='c'>ºC</option>
+                                            </select>
                                             </span>
                                         </div>
                                     </div>
@@ -210,6 +229,25 @@ export default function AddObservation() {
                                             </button>
                                         </div>
                                     </div>
+                                    {
+                                        (()=>{
+                                            switch (geolocationStatus){
+                                                case 'loading':
+                                                    return <div className='alert alert-warning'>Getting your location</div>
+                                                case 'position-unavailable':
+                                                case 'timed-out':
+                                                    return <div className='alert alert-danger'>Failed to get your location. Location unavailable/timed out. Please try again later</div>
+                                                case 'permission-denied':
+                                                    return <div className='alert alert-danger'>Failed to get your location. Please allow location access/permission and try again</div>
+                                                default:
+                                                    return '';
+                                            }
+
+                                        })()
+                                    }
+
+
+
                                 </div>
 
                                 <div className="text-center">

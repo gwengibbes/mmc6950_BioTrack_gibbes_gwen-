@@ -9,7 +9,7 @@ export default function Observations({observations}) {
                     {observations.map(o => {
                             return <Row key={o._id}>
                                 <Col xs='12' ><Observation observation={o}/></Col>
-                                <hr className={'mt-5 mb-5'} />
+                                {/*<hr className={'mt-5 mb-5'} />*/}
                             </Row>
 
 

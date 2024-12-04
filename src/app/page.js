@@ -76,7 +76,6 @@ export default function Home() {
                                 <img className={styles.logo_large} src='/images/logo-lg.png'/>
                                 {/*<Image src={'/images/logo-lg.png'} alt='BioTrack Logo' width={200}></Image>*/}
                                 <div className='auth-prompt'>
-                                    <h2 className='highlight'>Join BioTrack Today!</h2>
                                     <div className="d-grid gap-2">
                                         <Button href='/signup' variant="primary" size="lg">Sign Up</Button>
                                         <Button variant="primary" size="lg" className={'d-md-none'}>Login</Button>
